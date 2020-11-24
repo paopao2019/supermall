@@ -22,3 +22,10 @@ src:
 ### 创建 .editorconfig 配置统一文件
     脚手架二中有，3中已经删除，但是要自己搞一个
 
+### 配置路由
+如果没有安装vue-router组件
+npm install vue-router --save
+配置router下面的index.js
+
+### 更改favicon.ico
+替换 public下的 favicon.ico即可

@@ -26,7 +26,6 @@ instance.interceptors.response.use(res => {
   console.log(err);
 })
 
-
 // 简写
 export function request(config) {
   // 发送真正的请求 大脑理解下  instance返回的也是promise
