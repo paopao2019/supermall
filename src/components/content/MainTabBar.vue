@@ -1,5 +1,5 @@
 <template>
-  <tab-bar>
+  <tab-bar class="tab-bar">
     <!--      显示同一个文字同一个图片 使用插槽解决 -->
     <tab-bar-item path="/home"  activeColor="red">
 <!--      assets 是设置的别名 dom中使用需要加上前缀 ~-->
@@ -41,4 +41,7 @@
 
 <style scoped>
 
+  .tab-bar {
+    /*position: fixed;*/
+  }
 </style>

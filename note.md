@@ -29,3 +29,21 @@ npm install vue-router --save
 
 ### 更改favicon.ico
 替换 public下的 favicon.ico即可
+
+### 封装网络框架
+npm install axios --save
+
+
+### 命名问题
+.vue文件名 要使用 PascalCase
+使用HomeSwiper 不能是使用Home-Swiper 否则会有问题
+
+
+### better-scroll
+(要封装起来) 好的设计架构views中不要直接使用这个better-scroll，
+版本不要下载最新 我遇到了bug 有情况不滚动的情况
+npm install better-scroll@v1.15.0
+
+
+### 安装vuex
+npm install vuex --save

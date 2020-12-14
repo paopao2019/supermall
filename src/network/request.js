@@ -5,7 +5,7 @@ import axios from 'axios'
 
 // 创建一个实例
 const instance = axios.create({
-  baseURL: 'http://httpbin.org',
+  baseURL: 'http://152.136.185.210:8000/api/w6',
   timeout: 30000
 })
 
