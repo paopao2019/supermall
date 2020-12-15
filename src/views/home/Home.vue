@@ -23,7 +23,7 @@
       <goods-list :goods="showGoods"></goods-list>
     </scroll>
     <!--回到顶部按钮 .native - 监听组件根元素的原生事件。这个v-on的修饰符 -->
-    <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>
+    <back-top @click.native="backTopClick" v-show="isShowBackTop"></back-top>
   </div>
 </template>
 
@@ -36,9 +36,10 @@
   import TabControl from "../../components/content/tabControl/TabControl";
   import GoodsList from "../../components/content/goods/GoodsList";
   import Scroll from "../../components/common/scroll/Scroll";
-  import BackTop from "../../components/content/backTop/BackTop";
   import {getHomeMultiData, getHomeGoods} from '../../network/home';
   import {debounce} from '../../common/utils'
+  import {backTopMixin} from "../../mixins";
+  import {BACKTOP_DISTANCE} from 'common/const.js'
 
 
   export default {
@@ -51,8 +52,8 @@
       HomeFeature,
       GoodsList,
       Scroll,
-      BackTop
     },
+    mixins: [backTopMixin],
     data() {
       return {
         banners: [],
@@ -64,7 +65,6 @@
           'sell': {page: 0, list: []},
         },
         currentType: 'pop',
-        isShowBackTop: false,
         tabOffsetTop: 609,
         isTabFixed: false,
         savePosition: 0
@@ -149,14 +149,9 @@
         this.$refs.tabControl1.currentIndex = index;
         this.$refs.tabControl2.currentIndex = index;
       },
-      backClick() {
-        console.log('点击回到顶部');
-        // console.log(this.$refs.scroll.message);
-        this.$refs.scroll.scrollTo(0, 0)
-      },
       scrollPosition(position) {
-        // 1. 控制返回按钮是否显示
-        this.isShowBackTop = (-position.y) > 1000
+        // 1. 监听返回按钮是否显示
+        this.isShowBackTop = (-position.y) > BACKTOP_DISTANCE
         // 2. 决定tabControl是否吸顶(position: fixed)
         this.isTabFixed = (-position.y) > this.tabOffsetTop
       },

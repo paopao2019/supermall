@@ -4,7 +4,7 @@
     <CheckButton class="select-all" @checkBtnClick="checkBtnClick" :value="isSelectAll"></CheckButton>
     <span>全选</span>
     <span class="total-price">合计: ¥{{totalPrice}}</span>
-    <span class="buy-product">去计算({{$store.getters.cartLength}})</span>
+    <span class="buy-product" @click="toSettle">去结算({{$store.getters.cartLength}})</span>
   </div>
 </template>
 
@@ -47,6 +47,14 @@
           this.$store.state.cartList.forEach(item => {
             item.checked = false;
           });
+        }
+      },
+      toSettle() {
+        let isSelectAll = this.$store.getters.cartList.find(item => item.checked);
+        if (isSelectAll) {
+          this.$toast.show('结算功能实现中....')
+        } else {
+          this.$toast.show('没有选中商品')
         }
       }
     }

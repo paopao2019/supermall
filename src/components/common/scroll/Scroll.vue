@@ -30,7 +30,7 @@
     methods: {
       scrollTo(x, y, time=500) {
         // 严谨写法
-        console.log(y, time)
+        // console.log(y, time)
         this.bs && this.bs.scrollTo && this.bs.scrollTo(0,0, time)
       },
       finishPullUp() {

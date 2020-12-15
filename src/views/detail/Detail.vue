@@ -19,7 +19,7 @@
     </scroll>
     <detail-bottom-bar @addToCart="addToCart" ></detail-bottom-bar>
     <!--回到顶部按钮 .native - 监听组件根元素的原生事件。这个v-on的修饰符 -->
-    <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>
+    <back-top @click.native="backTopClick" v-show="isShowBackTop"></back-top>
   </div>
 </template>
 
@@ -36,8 +36,8 @@
   import {getDetail, DetailGoods, Shop, GoodsParam, getRecommend} from 'network/detail'
   import DetailRecommendInfo from "./childComps/DetailRecommendInfo";
   import DetailBottomBar from "./childComps/DetailBottomBar";
-  import BackTop from "../../components/content/backTop/BackTop";
-
+  import {backTopMixin} from "../../mixins";
+  import {BACKTOP_DISTANCE} from 'common/const.js'
 
   export default {
     name: "Detail",
@@ -52,8 +52,8 @@
       DetailParamInfo,
       DetailCommentInfo,
       DetailBottomBar,
-      BackTop
     },
+    mixins: [backTopMixin],
     data() {
       return {
         iid: null,
@@ -66,8 +66,8 @@
         recommends: [],
         themeTopYs: [0, 0, 0, 0],  // 默认初始值
         currentIndex: 0,
-        isShowBackTop: false,
         tabOffsetTop: 609,
+
       }
     },
     methods: {
@@ -104,15 +104,9 @@
             this.$refs.nav.currentIndex = i
           }
         }
-        // 1. 控制返回按钮是否显示
-        this.isShowBackTop = (-position.y) > 1000
+        // 1. 监听返回按钮是否显示
+        this.isShowBackTop = (-position.y) > BACKTOP_DISTANCE
       },
-      backClick() {
-        console.log('点击回到顶部');
-        // console.log(this.$refs.scroll.message);
-        this.$refs.scroll.scrollTo(0, 0)
-      },
-
       addToCart() {
         console.log('detail 购物车')
         // 1. 获取购物车需要展示的信息 加入购物车
@@ -126,7 +120,15 @@
 
         console.log(product)
         // 2. 将商品加入购物车中
-        this.$store.dispatch('addCart', product)
+        // 3. 回显消息 toast
+        this.$store.dispatch('addCart', product).then(res => {
+          console.log(res)
+          // console.log(this.$toast)
+          this.$toast.show(res)
+
+        }).catch(res => {
+          console.log('加入购物车失败')
+        })
       }
 
     },

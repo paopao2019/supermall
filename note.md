@@ -47,3 +47,11 @@ npm install better-scroll@v1.15.0
 
 ### 安装vuex
 npm install vuex --save
+
+
+### 优化
+    #### 图片懒加载
+    安装 npm i vue-lazyload -S
+    导入 import VueLazyload from 'vue-lazyload'
+    安装 Vue.use(VueLazyload)
+    使用 <img src=img> 更改为 <img v-lazy=img>
